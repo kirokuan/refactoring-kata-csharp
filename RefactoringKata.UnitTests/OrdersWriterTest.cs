@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace RefactoringKata.UnitTests
@@ -6,21 +7,21 @@ namespace RefactoringKata.UnitTests
     [TestFixture]
     public class OrdersWriterTest
     {
-        private Orders _orders;
+        private List<Order> _orders;
         private Order _order111;
 
         [SetUp]
         public void SetupOneOrder()
         {
             _order111 = new Order(111);
-            _orders = new Orders();
-            _orders.AddOrder(_order111);
+            _orders = new List<Order>();
+            _orders.Add(_order111);
         }
 
         [Test]
         public void NoOrder()
         {
-            Assert.AreEqual("{\"orders\": []}", new OrdersWriter(new Orders()).GetContents());
+            Assert.AreEqual("{\"orders\": []}", new OrdersWriter(new List<Order>()).GetContents());
         }
 
         [Test]
@@ -51,7 +52,7 @@ namespace RefactoringKata.UnitTests
         [Test]
         public void TwoOrders()
         {
-            _orders.AddOrder(new Order(222));
+            _orders.Add(new Order(222));
 
             var order111Json = JsonOrder111WithProduct("");
             var order222Json = "{\"id\": 222, \"products\": []}";

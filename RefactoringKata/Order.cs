@@ -1,21 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 
 namespace RefactoringKata
 {
-    public class Order
+    public class Order 
     {
         private readonly int id;
-        private readonly List<Product> _products = new List<Product>();
-
+        public readonly List<Product> _products = new List<Product>();
+        private int cur = -1;
         public Order(int id)
         {
             this.id = id;
         }
 
-        public int GetOrderId()
-        {
-            return id;
-        }
+        //public int GetOrderId()
+        //{
+        //    return id;
+        //}
 
         public int GetProductsCount()
         {
@@ -30,6 +32,22 @@ namespace RefactoringKata
         public void AddProduct(Product product)
         {
             _products.Add(product);
+        }
+
+
+        public override string ToString()
+        {
+            StringBuilder sb=new StringBuilder();
+            sb.Append("{");
+            sb.Append("\"id\": ");
+            sb.Append(id);
+            sb.Append(", ");
+            sb.Append("\"products\": [");
+            sb.Append(string.Join(",", _products));
+
+            sb.Append("]");
+            sb.Append("}");
+            return sb.ToString();
         }
     }
 }
